@@ -42,7 +42,7 @@ public class Cell
     }
     private void InitAvailableOptions()
     {
-        if (CellIsEmpty())
+        if (this.IsEmpty)
         {
             List<int> availableOptions = new List<int>();
             for (int i = 1; i < 10; i++)
@@ -51,12 +51,19 @@ public class Cell
             }
         }
     }
-    public bool CellIsEmpty()
+    public bool IsEmpty
     {
-        if (Value == 0)
-        {
-            return true;
+        get{
+            if (Value == 0)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
+    }
+
+    public override string ToString()
+    {
+        return IsEmpty ? " " : Value.ToString();
     }
 }

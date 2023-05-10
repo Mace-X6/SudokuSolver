@@ -1,5 +1,5 @@
 namespace SudokuSolverCs;
-class Clump
+public class Clump
 {
     private Cell[] Cells {get; set;}
     public Clump(Cell[] cells){
