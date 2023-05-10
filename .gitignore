@@ -23,7 +23,8 @@ packages/
 
 # Build results
 build/
-/obj/*
+**/**/bin/*
+**/**/obj/*
 
 # TypeScript
 *.tsbuildinfo
@@ -33,4 +34,3 @@ build/
 Thumbs.db
 .DS_Store
 .idea/
-/bin/*
