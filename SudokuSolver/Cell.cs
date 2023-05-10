@@ -29,18 +29,16 @@ public class Cell
         }
         return Value;
     }
-    public List<int> RemoveAvailableOption(int value)
+    public void RemoveAvailableOption(int value)
     {
-        if (AvailableOptions?.Count > 0)
+        if (AvailableOptions?.Count > 1)
         {
             AvailableOptions.Remove(value);
             if (AvailableOptions.Count == 1)
             {
                 SetValue(AvailableOptions[0]);
             }
-            return AvailableOptions;
         }
-        return new List<int> {Value};
     }
     private void InitAvailableOptions()
     {
