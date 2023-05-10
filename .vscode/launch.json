@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net7.0/SudokuSolverCs.dll",
+            "program": "${workspaceFolder}/SudokuSolver.App/bin/Debug/net7.0/SudokuSolver.App.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
@@ -19,6 +19,22 @@
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
+        },
+        {
+            "name": ".NET Core Test",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test",
+            "program": "${workspaceFolder}/SudokuSolver.Tests/bin/Debug/net7.0/SudokuSolver.Tests.dll",
+            "args": [
+                "--logger",
+                "trx"
+            ],
+            "cwd": "${workspaceFolder}/SudokuSolver.Tests/",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart"
         }
+
     ]
 }

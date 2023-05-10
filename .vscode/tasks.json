@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/SudokuSolverCs.csproj",
+                "${workspaceFolder}/SudokuSolver/SudokuSolver.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/SudokuSolverCs.csproj",
+                "${workspaceFolder}/SudokuSolver/SudokuSolver.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,18 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/SudokuSolverCs.csproj"
+                "${workspaceFolder}/SudokuSolver/SudokuSolver.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "--no-build",
+                "${workspaceFolder}/SudokuSolver.Tests/SudokuSolver.Tests.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

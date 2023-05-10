@@ -11,7 +11,7 @@ public class SudokuSolverTests
         var clump = new Clump(new[]
         {
             new Cell(1),
-            new Cell(2, 5),
+            new Cell(2),
             new Cell(3),
             new Cell(4),
             new Cell(5),
@@ -20,6 +20,7 @@ public class SudokuSolverTests
             new Cell(8),
             new Cell(9),
         });
+        clump.Cells[1].SetValue(5);
 
         // Assert
         clump.Cells[1].Value.Should().Be(5);
