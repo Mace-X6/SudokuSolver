@@ -8,7 +8,7 @@ public class Clump
             cell.AssignedMethod += UpdateCells;
         }
     }
-    private void UpdateCells(object sender, CellValueChangedEvent cellValueChangedEvent){
+    private void UpdateCells(object? sender, CellValueChangedEvent cellValueChangedEvent){
         foreach (Cell cell in Cells){
             if (cell.Id != cellValueChangedEvent.CellId){
                 cell.RemoveAvailableOption(cellValueChangedEvent.NewValue);

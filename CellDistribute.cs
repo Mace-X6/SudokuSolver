@@ -17,7 +17,8 @@ public static class CellDistribute
     public static Clump Column(List<Cell> cells, int columnNum)
     {
         List<Cell> cellsToClump = new List<Cell>();
-        for (int i = columnNum; i < columnNum + 8 * columnNum; i++)
+
+        for (int i = 0; i < 9; i++)
         {
             cellsToClump.Add(cells[columnNum + 9 * i]);
         }
