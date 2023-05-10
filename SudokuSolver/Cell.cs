@@ -46,10 +46,10 @@ public class Cell
     {
         if (this.IsEmpty)
         {
-            List<int> availableOptions = new List<int>();
+            AvailableOptions = new List<int>();
             for (int i = 1; i < 10; i++)
             {
-                availableOptions.Add(i);
+                AvailableOptions.Add(i);
             }
         }
     }
