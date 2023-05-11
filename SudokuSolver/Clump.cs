@@ -1,25 +1,1 @@
-﻿namespace SudokuSolver;
-
-public class Clump
-{
-    public Cell[] Cells { get; }
-
-    public Clump(Cell[] cells)
-    {
-        Cells = cells;
-        foreach (Cell cell in Cells)
-        {
-            cell.AssignedMethod += UpdateCells;
-        }
-    }
-    private void UpdateCells(object? sender, CellValueChangedEvent cellValueChangedEvent)
-    {
-        foreach (Cell cell in Cells)
-        {
-            if (cell.Id != cellValueChangedEvent.CellId)
-            {
-                cell.RemoveAvailableOption(cellValueChangedEvent.NewValue);
-            }
-        }
-    }
-}
+namespace SudokuSolver;public abstract class Clump{    protected int Number { get; }    public Cell[] Cells { get; private set; }        protected Clump(int number, Cell[] gridCells)    {        Number = number;        Cells = Array.Empty<Cell>();                InitializeCells(gridCells);    }    private void InitializeCells(IEnumerable<Cell> gridCells)    {        Cells = FilterClumpCells(gridCells.ToArray());                foreach (Cell cell in Cells){            cell.AssignedMethod += UpdateCells;        }    }    protected abstract Cell[] FilterClumpCells(Cell[] gridCells);    private void UpdateCells(object? sender, CellValueChangedEvent cellValueChangedEvent){        foreach (Cell cell in Cells){            if (cell.Id != cellValueChangedEvent.CellId){                cell.RemoveAvailableOption(cellValueChangedEvent.NewValue);            }        }    }}

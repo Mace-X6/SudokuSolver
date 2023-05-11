@@ -2,7 +2,7 @@
 
 public class PrintField
 {
-    public static void PrintCells(List<Cell> cells)
+    public static void PrintCells(Cell[] cells)
     {
         string output = "";
         string separator = ">-------+-------+-------<\n";

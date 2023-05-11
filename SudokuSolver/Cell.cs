@@ -55,17 +55,7 @@ public class Cell
             AvailableOptions.Add(Value);
         }
     }
-    public bool IsEmpty
-    {
-        get
-        {
-            if (Value == 0)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
+    public bool IsEmpty => Value == 0;
 
     public override string ToString()
     {

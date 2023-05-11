@@ -1,14 +1,17 @@
 namespace SudokuSolver;
 public class Grid
 {
-    public List<Clump> Rows { get; private set; }
-    public List<Clump> Columns { get; private set; }
-    public List<Clump> Blocks { get; private set; }
+    private readonly List<Cell> _cells = new();
     public List<Clump> Clumps { get; private set; }
-    public List<Cell> Cells { get; private set; }
+
+    private List<Clump> Rows { get; set; }
+    private List<Clump> Columns { get; set; }
+    private List<Clump> Blocks { get; set; }
+
+    public Cell[] Cells => _cells.ToArray();
+
     public Grid()
     {
-        Cells = new List<Cell>();
         Rows = new List<Clump>();
         Columns = new List<Clump>();
         Blocks = new List<Clump>();
@@ -17,26 +20,26 @@ public class Grid
         for (int id = 0; id < 81; id++)
         {
             var cell = new Cell(id);
-            Cells.Add(cell);
+            _cells.Add(cell);
         }
 
         for (int j = 0; j < 9; j++)
         {
-            var row = CellDistribute.Row(Cells, j);
-            var column = CellDistribute.Column(Cells, j);
-            var block = CellDistribute.Block(Cells, j);
+            var row = new Row(j, Cells);
+            var column = new Column(j, Cells);
+            var block = new Block(j, Cells);
+
             Rows.Add(row);
             Columns.Add(column);
             Blocks.Add(block);
-            Clumps.Add(row);
-            Clumps.Add(column);
-            Clumps.Add(block);
-
-
         }
+        
+        Clumps.AddRange(Rows);
+        Clumps.AddRange(Columns);
+        Clumps.AddRange(Blocks);
     }
 
-    public List<Cell> FillGrid(List<Cell> cells, int[] field)
+    public Cell[] FillGrid(Cell[] cells, int[] field)
     {
         foreach (Cell cell in cells)
         {

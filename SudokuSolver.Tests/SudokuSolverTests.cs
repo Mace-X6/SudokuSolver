@@ -5,10 +5,10 @@ namespace SudokuSolver.Tests;
 public class SudokuSolverTests
 {
     [Fact]
-    public void When_creating_a_clump_from_a_collection_of_values_it_should_initialize_the_cells_()
+    public void When_creating_a_row_from_a_collection_of_values_it_should_initialize_the_cells()
     {
         // Arrange
-        var clump = new Clump(new[]
+        var clump = new Row(0, new[]
         {
             new Cell(1),
             new Cell(2),
