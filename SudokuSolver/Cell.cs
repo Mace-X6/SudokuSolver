@@ -22,7 +22,10 @@ public class Cell
         if (value < 10 && value >= 0)
         {
             Value = value;
-            ValueChanged();
+            if (value != 0)
+            {
+                ValueChanged();
+            }
         }
         else
         {

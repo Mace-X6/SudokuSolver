@@ -232,4 +232,31 @@ public class GridTests
         solve.DuplicateOptionsSolver(grid);
         grid.Cells.Select(c => c.Value).Should().NotContain(0);
     }
+    [Fact]
+    public void Program_should_solve_sudoku2()
+    {
+        int[] sudokuField = {
+    0, 2, 0, 0, 9, 0, 0, 0, 0,
+    0, 0, 6, 4, 0, 2, 0, 0, 0,
+    7, 0, 0, 0, 0, 0, 0, 0, 5,
+    0, 0, 0, 0, 2, 0, 0, 3, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 3, 0, 0, 5, 0, 0, 0, 0,
+    3, 0, 0, 0, 0, 0, 0, 0, 1,
+    0, 0, 0, 6, 0, 7, 9, 0, 0,
+    0, 0, 0, 0, 1, 0, 0, 2, 0
+};
+
+
+        var grid = new Grid();
+        var cells = grid.Cells;
+        grid.FillGrid(sudokuField);
+
+        var solve = new Solve();
+        solve.DuplicateOptionsSolver(grid);
+        foreach (Clump clump in grid.Clumps){
+            clump.Cells.Select(c=>c.Value).Should().OnlyHaveUniqueItems();
+        }
+        grid.Cells.Select(c => c.Value).Should().NotContain(0);
+    }
 }

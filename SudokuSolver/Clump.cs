@@ -2,7 +2,7 @@
 
 public abstract class Clump
 {
-    protected int Number { get; }
+    public int Number { get; }
     public Cell[] Cells { get; private set; }
     
     protected Clump(int number, Cell[] gridCells)
