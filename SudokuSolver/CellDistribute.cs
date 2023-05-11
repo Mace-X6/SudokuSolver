@@ -4,7 +4,7 @@ public static class CellDistribute
     public static Clump Row(List<Cell> cells, int rowNum)
     {
         List<Cell> cellsToClump = new List<Cell>();
-        for (int i = 9 * rowNum; i < 9 * (rowNum + 1) - 1; i++)
+        for (int i = 9 * rowNum; i < 9 * (rowNum + 1); i++)
         {
             cellsToClump.Add(cells[i]);
         }
