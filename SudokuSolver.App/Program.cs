@@ -23,3 +23,6 @@ var solve = new Solve();
 solve.DuplicateOptionsSolver(grid);
 Console.WriteLine("\nafter solving:");
 Console.Write(grid.Print());
+
+Console.WriteLine("\nDebug Info:");
+Console.Write(grid.PrintDebug());

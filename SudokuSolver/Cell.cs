@@ -60,9 +60,41 @@ public class Cell
         }
     }
     public bool IsEmpty => Value == 0;
-
+    
+    public string Print()
+    {
+        return IsEmpty ? " " : Value.ToString();
+    }
+    
     public override string ToString()
     {
         return IsEmpty ? " " : Value.ToString();
+    }
+
+    public string PrintInnerRow(int innerRowIndex)
+    {
+        /*
+| 1 2 3 |
+| 4 5 6 |
+| 7 8 9 |
+         */
+        
+        if (IsEmpty)
+        {
+            int optionValueOffset = innerRowIndex * 3;
+            return $"{PrintOption(1 + optionValueOffset)} {PrintOption(2 + optionValueOffset)} {PrintOption(3 + optionValueOffset)} ";
+        }
+        
+        if (innerRowIndex == 1)
+        {
+            return $"  {Value}   ";
+        }
+
+        return "      ";
+    }
+
+    private string PrintOption(int optionValue)
+    {
+        return AvailableOptions.Contains(optionValue) ? $"{optionValue}" : " ";
     }
 }
