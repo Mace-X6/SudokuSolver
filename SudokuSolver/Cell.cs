@@ -29,11 +29,15 @@ public class Cell
         }
         return Value;
     }
-    public void RemoveAvailableOption(int value)
+    public void RemoveAvailableOptions(int[] valuesToRemove)
     {
         if (AvailableOptions?.Count > 1)
         {
-            AvailableOptions.Remove(value);
+            foreach (int value in valuesToRemove)
+            {
+                AvailableOptions.Remove(value);
+            }
+
             if (AvailableOptions.Count == 1)
             {
                 SetValue(AvailableOptions[0]);

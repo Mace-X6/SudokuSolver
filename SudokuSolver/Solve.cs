@@ -1,54 +1,43 @@
 namespace SudokuSolver;
-public class SudokuSolve
+public class Solve
 {
-    public Grid DuplicateOptionsSolver(Grid grid){
+    public void DuplicateOptionsSolver(Grid grid){
         foreach(Clump clump in grid.Clumps)
         {
-            Cell[][] duplicateAvaialableOptionCells = GetDuplicateAvaialableOptionCells(clump.Cells);
-            foreach (Cell[] matchingCells in duplicateAvaialableOptionCells)
-            {
-                foreach (Cell cell in clump.Cells){
-                    if (!matchingCells.Contains(cell)){
-                        foreach (int value in matchingCells[0].AvailableOptions)
-                        {
-                        cell.RemoveAvailableOption(value);
-                        }
-                    }
-                }
-            }
+            RemoveOptions(clump, 2);
         }
-        return grid;
     }
-    private Cell[][] GetDuplicateAvaialableOptionCells(Cell[] cells)
+
+    private void RemoveOptions(Clump clump, int count)
     {
-        List<List<Cell>> matchingCellsList = new();
-        foreach (Cell cell in cells)
+        var cellsWithCountOptions = clump.Cells.Where(c => c.AvailableOptions.Count == count);
+
+        foreach(var cell in cellsWithCountOptions)
         {
-            foreach(List<Cell> matchingCells in matchingCellsList){
-                if (matchingCells.Contains(cell)){
-                    continue;
-                }
-            }
-            for (int i = 0; i < 9; i++)
+            var cellsWithMatchingOptions = FindCellsWithSameOptions(cell, clump);
+
+            if (cellsWithMatchingOptions.Count() > 0)
             {
-                List<Cell> matchingCells = new();
-                if (cells[i].Id != cell.Id)
+                var matchingCellIds = new List<int>() {cell.Id};
+                matchingCellIds.AddRange(cellsWithMatchingOptions.Select(c => c.Id));
+
+                var cellsToUpdate = clump.Cells.Where(c => !matchingCellIds.Contains(c.Id));
+                foreach (var cellToUpdate in cellsToUpdate)
                 {
-                    Cell targetCell = cells[i];
-                    if (targetCell.AvailableOptions == cell.AvailableOptions)
-                    {
-                        if (!matchingCells.Contains(cell)){
-                            matchingCells.Add(cell);
-                        }
-                        matchingCells.Add(targetCell);
-                    }
+                    cellToUpdate.RemoveAvailableOptions(cell.AvailableOptions.ToArray());
                 }
             }
         }
-        Cell[][] output = new Cell[matchingCellsList.Count][];
-        for (int i = 0; i < matchingCellsList.Count; i ++){
-            output[i] = matchingCellsList[i].ToArray();
+    }
+
+    private IEnumerable<Cell> FindCellsWithSameOptions(Cell cell, Clump clump)
+    {
+        foreach (var cellInClump in clump.Cells.Where(c => c.Id != cell.Id))
+        {
+            if (cellInClump.AvailableOptions.SequenceEqual(cell.AvailableOptions))
+            { 
+                yield return cellInClump;
+            }
         }
-        return output;
     }
 }
