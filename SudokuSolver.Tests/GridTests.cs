@@ -59,7 +59,7 @@ public class GridTests
             }
         }
     }
-    
+
     [Fact]
     public void When_the_sudoku_is_done_it_should_have_filled_all_possible_cells()
     {
@@ -83,8 +83,79 @@ public class GridTests
         // Then
         foreach (var cell in grid.Cells)
         {
-            if (cell.Value == 0){
+            if (cell.Value == 0)
+            {
                 cell.AvailableOptions.Should().NotHaveCount(1);
+            }
+        }
+    }
+
+    [Fact]
+    public void Clumps_should_never_have_one_empty_cell()
+    {
+        // Given
+        var grid = new Grid();
+        int[] sudokuField = {
+    5, 3, 0, 0, 0, 8, 9, 0, 2,
+    6, 0, 2, 1, 0, 5, 0, 4, 8,
+    0, 9, 0, 3, 4, 2, 5, 0, 0,
+    8, 0, 9, 0, 0, 1, 0, 2, 3,
+    0, 2, 0, 8, 5, 3, 7, 0, 1,
+    0, 1, 3, 0, 2, 4, 0, 5, 6,
+    9, 6, 0, 5, 0, 0, 2, 8, 0,
+    2, 8, 0, 4, 0, 9, 6, 0, 0,
+    3, 0, 0, 0, 8, 6, 0, 7, 9
+};
+
+        // When
+        grid.FillGrid(grid.Cells, sudokuField);
+
+        // Then
+        foreach (Clump clump in grid.Clumps)
+        {
+            int AmtOfEmptyCells = 0;
+            foreach (Cell cell in clump.Cells)
+            {
+                if (cell.IsEmpty)
+                {
+                    AmtOfEmptyCells++;
+                }
+            }
+            AmtOfEmptyCells.Should().NotBe(1);
+        }
+    }
+    [Fact]
+    public void TestName()
+    {
+        // Given
+        var grid = new Grid();
+
+        List<List<int>> rows = new List<List<int>>();
+        for (int i = 0; i < 9; i++)
+        {
+            List<int> numbers = new List<int>();
+            for (int j = 0; j < 9; j++)
+            {
+                numbers.Add(9 * i + j);
+            }
+            rows.Add(numbers);
+        }
+
+        // When
+        var cells = grid.Cells;
+        List<Clump> clumps = new List<Clump>();
+
+        for (int i = 0; i < 9; i++)
+        {
+            clumps.Add(CellDistribute.Row(cells, i));
+        }
+
+        // Then
+        for (var j = 0; j < 9; j ++)
+        {
+            Clump row = clumps[j];
+            for (int i = 0; i < 9; i ++){
+                row.Cells[i].Should().Be(rows[j][i]);
             }
         }
     }
