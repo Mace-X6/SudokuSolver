@@ -11,10 +11,12 @@ int[] sudokuField = {
     2, 8, 0, 4, 0, 9, 6, 0, 0,
     3, 0, 0, 0, 8, 6, 0, 7, 9
 };
+
 Console.WriteLine("before solving:");
 PrintField.PrintValues(sudokuField);
+
 var grid = new Grid();
-var cells = grid.Cells;
-cells = grid.FillGrid(cells, sudokuField);
+grid.FillGrid(sudokuField);
+
 Console.WriteLine("\nafter solving:");
-PrintField.PrintCells(cells);
+Console.Write(grid.Print());

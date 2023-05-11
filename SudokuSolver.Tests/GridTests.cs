@@ -79,7 +79,7 @@ public class GridTests
         };
 
         // When
-        grid.FillGrid(grid.Cells, sudokuField);
+        grid.FillGrid(sudokuField);
 
         // Then
         foreach (var cell in grid.Cells)
@@ -110,7 +110,7 @@ public class GridTests
         };
 
         // When
-        grid.FillGrid(grid.Cells, sudokuField);
+        grid.FillGrid(sudokuField);
 
         // Then
         foreach (Clump clump in grid.Clumps)

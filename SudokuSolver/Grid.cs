@@ -2,21 +2,19 @@ namespace SudokuSolver;
 public class Grid
 {
     private readonly List<Cell> _cells = new();
-    public List<Clump> Clumps { get; private set; }
+    private readonly List<Row> _rows = new();
+    private readonly List<Column> _columns = new();
+    private readonly List<Block> _blocks = new();
+    private readonly List<Clump> _clumps = new();
 
-    private List<Clump> Rows { get; set; }
-    private List<Clump> Columns { get; set; }
-    private List<Clump> Blocks { get; set; }
-
+    public Clump[] Clumps => _clumps.ToArray();
+    public Row[] Rows => _rows.ToArray();
+    public Column[] Columns => _columns.ToArray();
+    public Block[] Blocks => _blocks.ToArray();
     public Cell[] Cells => _cells.ToArray();
 
     public Grid()
     {
-        Rows = new List<Clump>();
-        Columns = new List<Clump>();
-        Blocks = new List<Clump>();
-        Clumps = new List<Clump>();
-
         for (int id = 0; id < 81; id++)
         {
             var cell = new Cell(id);
@@ -29,25 +27,45 @@ public class Grid
             var column = new Column(j, Cells);
             var block = new Block(j, Cells);
 
-            Rows.Add(row);
-            Columns.Add(column);
-            Blocks.Add(block);
+            _rows.Add(row);
+            _columns.Add(column);
+            _blocks.Add(block);
         }
         
-        Clumps.AddRange(Rows);
-        Clumps.AddRange(Columns);
-        Clumps.AddRange(Blocks);
+        _clumps.AddRange(_rows);
+        _clumps.AddRange(_columns);
+        _clumps.AddRange(_blocks);
     }
 
-    public Cell[] FillGrid(Cell[] cells, int[] field)
+    public void FillGrid(int[] fields)
     {
-        foreach (Cell cell in cells)
+        foreach (Cell cell in Cells)
         {
             if (cell.IsEmpty)
             {
-                cell.SetValue(field[cell.Id]);
+                cell.SetValue(fields[cell.Id]);
             }
         }
-        return cells;
+    }
+    
+    public string Print()
+    {
+        const string separator = ">-------+-------+-------<\n";
+
+        string output = "";
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (i % 3 == 0)
+            {
+                output += separator;
+            }
+
+            output+= Rows[i].Print();
+        }
+
+        output += separator;
+
+        return output;
     }
 }

@@ -16,4 +16,9 @@ public class Row : Clump
 
         return cellsToClump.ToArray();
     }
+    
+    public string Print()
+    {
+        return $"| {Cells[0]} {Cells[1]} {Cells[2]} | {Cells[3]} {Cells[4]} {Cells[5]} | {Cells[6]} {Cells[7]} {Cells[8]} |\n";
+    }
 }
