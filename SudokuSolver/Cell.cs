@@ -5,7 +5,7 @@ public class Cell
     public event EventHandler<CellValueChangedEvent>? AssignedMethod;
     public int Value { get; private set; }
     public int Id { get; }
-    public List<int>? AvailableOptions { get; private set; }
+    public List<int> AvailableOptions { get; private set; }
     public Cell(int cellId, int value = 0)
     {
         Id = cellId;
@@ -42,13 +42,17 @@ public class Cell
     }
     private void InitAvailableOptions()
     {
+        AvailableOptions = new List<int>();
         if (this.IsEmpty)
         {
-            AvailableOptions = new List<int>();
             for (int i = 1; i < 10; i++)
             {
                 AvailableOptions.Add(i);
             }
+        }
+        else
+        {
+            AvailableOptions.Add(Value);
         }
     }
     public bool IsEmpty
