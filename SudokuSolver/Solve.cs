@@ -5,6 +5,9 @@ public class Solve
         foreach(Clump clump in grid.Clumps)
         {
             RemoveOptions(clump, 2);
+            RemoveOptions(clump, 3);
+            RemoveOptions(clump, 4);
+            RemoveOptions(clump, 5);
         }
     }
 

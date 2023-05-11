@@ -16,7 +16,10 @@ Console.WriteLine("before solving:");
 PrintField.PrintValues(sudokuField);
 
 var grid = new Grid();
-grid.FillGrid(sudokuField);
+var cells = grid.Cells;
+cells = grid.FillGrid(sudokuField);
 
+var solve = new Solve();
+solve.DuplicateOptionsSolver(grid);
 Console.WriteLine("\nafter solving:");
 Console.Write(grid.Print());
