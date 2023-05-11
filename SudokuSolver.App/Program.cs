@@ -30,6 +30,7 @@ PrintField.PrintValues(sudokuField);
 var grid = new Grid();
 var cells = grid.Cells;
 grid.FillGrid(sudokuField);
+Console.Write(grid.PrintDebug());
 
 var solve = new Solve();
 solve.DuplicateOptionsSolver(grid);
