@@ -10,6 +10,7 @@ public class Cell
     {
         Id = cellId;
         Value = value;
+        AvailableOptions = new List<int>();
         InitAvailableOptions();
     }
     private void ValueChanged()
@@ -46,7 +47,6 @@ public class Cell
     }
     private void InitAvailableOptions()
     {
-        AvailableOptions = new List<int>();
         if (this.IsEmpty)
         {
             for (int i = 1; i < 10; i++)
