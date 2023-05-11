@@ -17,7 +17,7 @@ PrintField.PrintValues(sudokuField);
 
 var grid = new Grid();
 var cells = grid.Cells;
-cells = grid.FillGrid(sudokuField);
+grid.FillGrid(sudokuField);
 
 var solve = new Solve();
 solve.DuplicateOptionsSolver(grid);

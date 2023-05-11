@@ -7,7 +7,6 @@ public class Solve
             RemoveOptions(clump, 2);
             RemoveOptions(clump, 3);
             RemoveOptions(clump, 4);
-            RemoveOptions(clump, 5);
         }
     }
 
