@@ -5,91 +5,128 @@ namespace SudokuSolver.Tests;
 public class SolveTests
 {
     [Fact]
-    public void DuplicateOptionsSolver_Should_complete_sudoku_field()
+    public void Exclusive_options_solver_should_solve_for_2_cells()
     {
+        // Given
+        var strategies = new ISudokuSolverStrategy[] {
+            new Solver.ExclusiveOptionsStrategy()
+        };
+        Solver.SudokuSolver sudokuSolver = new Solver.SudokuSolver(strategies);
         int[] sudokuField = {
-  5, 3, 4, 0, 0, 8, 9, 1, 2,
-  6, 7, 2, 1, 9, 5, 3, 4, 8,
-  1, 9, 8, 3, 4, 2, 5, 6, 7,
-  8, 5, 9, 0, 0, 1, 4, 2, 3,
-  4, 2, 6, 8, 5, 3, 7, 9, 1,
-  7, 1, 3, 9, 2, 4, 8, 5, 6,
-  9, 6, 1, 5, 3, 7, 2, 8, 4,
-  2, 8, 7, 4, 1, 9, 6, 3, 5,
-  3, 4, 5, 2, 8, 6, 1, 7, 9
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0
         };
-
-        int[] sudokuField2 = {
-  1, 2, 3, 0, 0, 6, 0, 0, 9,
-  0, 0, 0, 0, 0, 0, 4, 0, 0,
-  0, 0, 0, 0, 0, 0, 5, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 4, 0,
-  0, 0, 0, 0, 0, 0, 0, 5, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0
-        };
-
-        var grid = new Grid();
+        Grid grid = new Grid(true);
         grid.FillGrid(sudokuField);
 
-        var solver = new Solver.SudokuSolver(new []
-        {
-            new ExclusiveOptionsStrategy()
-        });
+        // When
+        grid.Cells[0].RemoveAvailableOptions(Enumerable.Range(3, 9).ToArray());
+        grid.Cells[1].RemoveAvailableOptions(Enumerable.Range(3, 9).ToArray());
 
-        solver.Solve(grid);
-        
-        grid.Cells[3].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
-        grid.Cells[4].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
-        grid.Cells[30].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
-        grid.Cells[31].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
-
+        sudokuSolver.Solve(grid);
+        // Then
+        grid.Cells[0].AvailableOptions.Should().Contain(new int[] { 1, 2 });
+        grid.Cells[1].AvailableOptions.Should().Contain(new int[] { 1, 2 });
+        grid.Cells[2].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[3].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[4].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[5].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[6].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[7].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
+        grid.Cells[8].AvailableOptions.Should().NotContain(new int[] { 1, 2 });
     }
+
     [Fact]
-    public void DuplicateOptionsSolver_Should_complete_sudoku_field_with_3_cells()
+    public void Exclusive_options_solver_should_solve_for_3_cells()
     {
+        // Given
+        var strategies = new ISudokuSolverStrategy[] {
+            new Solver.ExclusiveOptionsStrategy()
+        };
+        Solver.SudokuSolver sudokuSolver = new Solver.SudokuSolver(strategies);
         int[] sudokuField = {
-  5, 3, 4, 0, 0, 8, 9, 1, 2,
-  6, 7, 2, 1, 9, 5, 3, 4, 8,
-  1, 9, 8, 3, 4, 2, 5, 6, 7,
-  8, 5, 9, 0, 0, 1, 4, 2, 3,
-  4, 2, 6, 8, 5, 3, 7, 9, 1,
-  7, 1, 3, 9, 2, 4, 8, 5, 6,
-  9, 6, 1, 5, 3, 7, 2, 8, 4,
-  2, 8, 7, 4, 1, 9, 6, 3, 5,
-  3, 4, 5, 2, 8, 6, 1, 7, 9
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0
         };
+        Grid grid = new Grid(true);
+        grid.FillGrid(sudokuField);
 
-        int[] sudokuField2 = {
-  1, 2, 0, 0, 0, 6, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 4, 0, 3,
-  0, 0, 0, 0, 0, 0, 5, 0, 0,
-  0, 0, 0, 0, 0, 0, 3, 4, 0,
-  0, 0, 0, 0, 0, 0, 0, 5, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 3, 4,
-  0, 0, 0, 0, 0, 0, 0, 0, 5,
-  0, 0, 0, 0, 0, 0, 0, 0, 0
+        // When
+        grid.Cells[0].RemoveAvailableOptions(Enumerable.Range(4, 9).ToArray());
+        grid.Cells[1].RemoveAvailableOptions(Enumerable.Range(4, 9).ToArray());
+        grid.Cells[2].RemoveAvailableOptions(Enumerable.Range(4, 9).ToArray());
+
+        sudokuSolver.Solve(grid);
+        // Then
+        grid.Cells[0].AvailableOptions.Should().Contain(new int[] { 1, 2, 3 });
+        grid.Cells[1].AvailableOptions.Should().Contain(new int[] { 1, 2, 3 });
+        grid.Cells[2].AvailableOptions.Should().Contain(new int[] { 1, 2, 3 });
+        grid.Cells[3].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+        grid.Cells[4].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+        grid.Cells[5].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+        grid.Cells[6].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+        grid.Cells[7].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+        grid.Cells[8].AvailableOptions.Should().NotContain(new int[] { 1, 2, 3});
+    }
+
+    [Fact]
+    public void Unique_option_in_clump_strategy_should_solve_first_cell()
+    {
+        // Given
+        var strategies = new ISudokuSolverStrategy[] {
+            new Solver.UniqueOptionInClumpStrategy()
         };
+        Solver.SudokuSolver sudokuSolver = new Solver.SudokuSolver(strategies);
+        int[] sudokuField = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0
+        };
+        // When
+        Grid grid = new Grid(true);
+        grid.FillGrid(sudokuField);
+        grid.Cells[1].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[2].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[3].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[4].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[5].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[6].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[7].RemoveAvailableOptions(new int[] { 1 });
+        grid.Cells[8].RemoveAvailableOptions(new int[] { 1 });
 
-        var grid = new Grid();
-        grid.FillGrid(sudokuField2);
+        // Then
+        sudokuSolver.Solve(grid);
 
-        var solver = new Solver.SudokuSolver(new []
-        {
-            new ExclusiveOptionsStrategy()
-        });
+        grid.Cells[0].Value.Should().Be(1);
+        grid.Cells[1].Value.Should().Be(0);
+        grid.Cells[2].Value.Should().Be(0);
+        grid.Cells[3].Value.Should().Be(0);
+        grid.Cells[4].Value.Should().Be(0);
+        grid.Cells[5].Value.Should().Be(0);
+        grid.Cells[6].Value.Should().Be(0);
+        grid.Cells[7].Value.Should().Be(0);
+        grid.Cells[8].Value.Should().Be(0);
 
-        solver.Solve(grid);
-
-        grid.Cells[2].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });
-        grid.Cells[3].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });
-        grid.Cells[4].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });
-        grid.Cells[6].AvailableOptions.Should().BeEquivalentTo(new[] { 7, 8, 9 });
-        grid.Cells[7].AvailableOptions.Should().BeEquivalentTo(new[] { 7, 8, 9 });
-        grid.Cells[8].AvailableOptions.Should().BeEquivalentTo(new[] { 7, 8, 9 });
 
     }
 }
