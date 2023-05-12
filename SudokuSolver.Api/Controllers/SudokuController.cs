@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Sudoku.Api;
 using SudokuSolver.Solver;
-using SudokuSolver = SudokuSolver.Solver.SudokuSolver;
 
 namespace SudokuSolver.Api.Controllers;
 
@@ -78,7 +77,7 @@ public class SudokuController : ControllerBase
         return new ISudokuSolverStrategy[]
         {
             new ExclusiveOptionsStrategy(),
-//            new UniqueOptionInClumpStrategy()
+            new UniqueOptionInClumpStrategy()
         };
     }
 }
