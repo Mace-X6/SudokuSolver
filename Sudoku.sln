@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.Tests", "Sudok
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.App", "SudokuSolver.App\SudokuSolver.App.csproj", "{DC40DCE6-FCEB-438C-B54C-9FA17E8D1C1D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuSolver.Api", "SudokuSolver.Api\SudokuSolver.Api.csproj", "{565E16A0-E07A-49F1-B0B1-D05E2901ABF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{DC40DCE6-FCEB-438C-B54C-9FA17E8D1C1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC40DCE6-FCEB-438C-B54C-9FA17E8D1C1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC40DCE6-FCEB-438C-B54C-9FA17E8D1C1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{565E16A0-E07A-49F1-B0B1-D05E2901ABF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{565E16A0-E07A-49F1-B0B1-D05E2901ABF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{565E16A0-E07A-49F1-B0B1-D05E2901ABF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{565E16A0-E07A-49F1-B0B1-D05E2901ABF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
