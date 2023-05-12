@@ -18,9 +18,10 @@ public class Solve
 
         foreach(var cell in cellsWithCountOptions)
         {
-            var cellsWithMatchingOptions = FindCellsWithSameOptions(cell, clump);
+            var cellsWithMatchingOptions = FindCellsWithSameOptions(cell, clump).ToArray();
 
-            if (cellsWithMatchingOptions.Count() > 0)
+            bool numberOfCellsWithSameOptionsEqualsCount = cellsWithMatchingOptions.Length == count - 1;
+            if (numberOfCellsWithSameOptionsEqualsCount)
             {
                 var matchingCellIds = new List<int>() {cell.Id};
                 matchingCellIds.AddRange(cellsWithMatchingOptions.Select(c => c.Id));

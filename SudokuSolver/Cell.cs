@@ -39,7 +39,10 @@ public class Cell
         {
             foreach (int value in valuesToRemove)
             {
-                AvailableOptions.Remove(value);
+                if (AvailableOptions.Contains(value))
+                {
+                    AvailableOptions.Remove(value);
+                }
             }
 
             if (AvailableOptions.Count == 1)
