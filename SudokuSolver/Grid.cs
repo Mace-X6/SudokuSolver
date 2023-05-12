@@ -14,8 +14,11 @@ public class Grid
     public Cell[] Cells => _cells.ToArray();
     public bool IsSolved => _cells.All(c => c.IsSolved);
 
-    public Grid()
+    private bool IsDebugMode { get; }
+
+    public Grid(bool isDebugMode = false)
     {
+        IsDebugMode = isDebugMode;
         for (int id = 0; id < 81; id++)
         {
             var cell = new Cell(id);
@@ -32,7 +35,7 @@ public class Grid
             _columns.Add(column);
             _blocks.Add(block);
         }
-        
+
         _clumps.AddRange(_rows);
         _clumps.AddRange(_columns);
         _clumps.AddRange(_blocks);
@@ -44,7 +47,7 @@ public class Grid
         {
             if (!cell.IsSolved)
             {
-                cell.SetValue(fields[cell.Id]);
+                cell.SetValue(fields[cell.Id], IsDebugMode);
             }
         }
     }

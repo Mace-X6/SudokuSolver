@@ -17,14 +17,17 @@ public class Cell
     {
         AssignedMethod?.Invoke(this, new CellValueChangedEvent(Id, Value));
     }
-    public void SetValue(int value)
+    public void SetValue(int value, bool inDebugMode = false)
     {
         if (value < 10 && value >= 0)
         {
             if (value != 0)
             {
                 RemoveAvailableOptions(AvailableOptions.Where(opt => opt != value).ToArray());
-                ValueChanged();
+                if (!inDebugMode)
+                {
+                    ValueChanged();
+                }
             }
         }
         else
@@ -35,7 +38,7 @@ public class Cell
     public bool RemoveAvailableOptions(int[] valuesToRemove)
     {
         bool appliedChanges = false;
-        
+
         if (AvailableOptions?.Count > 1)
         {
             foreach (int value in valuesToRemove)
@@ -69,7 +72,7 @@ public class Cell
             AvailableOptions.Add(Value);
         }
     }
-    
+
     public override string ToString()
     {
         return IsSolved ? Value.ToString() : " ";
