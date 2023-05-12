@@ -31,14 +31,24 @@ Console.WriteLine("before solving:");
 PrintField.PrintValues(sudokuField);
 
 var grid = new Grid();
-var cells = grid.Cells;
 grid.FillGrid(sudokuField);
 Console.Write(grid.PrintDebug());
 
-var solve = new Solve();
-solve.DuplicateOptionsSolver(grid);
-Console.WriteLine("\nafter solving:");
-Console.Write(grid.Print());
+var strategies = new ISudokuSolverStrategy[]
+{
+    new ExclusiveOptionsStrategy()
+};
 
-Console.WriteLine("\nDebug Info:");
-Console.Write(grid.PrintDebug());
+var solver = new SudokuSolver.SudokuSolver(strategies);
+solver.Solve(grid);
+
+if (grid.IsSolved)
+{
+    Console.WriteLine("\nSolved the puzzle!");
+    Console.Write(grid.Print());
+}
+else
+{
+    Console.WriteLine("\nCould not solve the puzzle.");
+    Console.Write(grid.PrintDebug());
+}

@@ -12,6 +12,7 @@ public class Grid
     public Column[] Columns => _columns.ToArray();
     public Block[] Blocks => _blocks.ToArray();
     public Cell[] Cells => _cells.ToArray();
+    public bool IsSolved => _cells.All(c => c.IsSolved);
 
     public Grid()
     {
@@ -41,7 +42,7 @@ public class Grid
     {
         foreach (Cell cell in Cells)
         {
-            if (cell.IsEmpty)
+            if (!cell.IsSolved)
             {
                 cell.SetValue(fields[cell.Id]);
             }

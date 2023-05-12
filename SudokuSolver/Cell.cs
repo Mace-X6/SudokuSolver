@@ -33,8 +33,10 @@ public class Cell
         }
         return Value;
     }
-    public void RemoveAvailableOptions(int[] valuesToRemove)
+    public bool RemoveAvailableOptions(int[] valuesToRemove)
     {
+        bool appliedChanges = false;
+        
         if (AvailableOptions?.Count > 1)
         {
             foreach (int value in valuesToRemove)
@@ -42,6 +44,7 @@ public class Cell
                 if (AvailableOptions.Contains(value))
                 {
                     AvailableOptions.Remove(value);
+                    appliedChanges = true;
                 }
             }
 
@@ -50,10 +53,12 @@ public class Cell
                 SetValue(AvailableOptions[0]);
             }
         }
+
+        return appliedChanges;
     }
     private void InitAvailableOptions()
     {
-        if (this.IsEmpty)
+        if (!IsSolved)
         {
             for (int i = 1; i < 10; i++)
             {
@@ -65,16 +70,16 @@ public class Cell
             AvailableOptions.Add(Value);
         }
     }
-    public bool IsEmpty => Value == 0;
+    public bool IsSolved => Value != 0;
     
     public string Print()
     {
-        return IsEmpty ? " " : Value.ToString();
+        return IsSolved ? Value.ToString() : " ";
     }
     
     public override string ToString()
     {
-        return IsEmpty ? " " : Value.ToString();
+        return IsSolved ? Value.ToString() : " ";
     }
 
     public string PrintInnerRow(int innerRowIndex)
@@ -85,7 +90,7 @@ public class Cell
 | 7 8 9 |
          */
         
-        if (IsEmpty)
+        if (!IsSolved)
         {
             int optionValueOffset = innerRowIndex * 3;
             return $"{PrintOption(1 + optionValueOffset)} {PrintOption(2 + optionValueOffset)} {PrintOption(3 + optionValueOffset)} ";
