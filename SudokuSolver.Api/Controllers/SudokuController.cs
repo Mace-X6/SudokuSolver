@@ -16,10 +16,17 @@ public class SudokuController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetPuzzle")]
-    public SudokuGridDto Get()
+    [HttpGet("GetPuzzle")]
+    public IActionResult Get(string? difficulty)
     {
-        var puzzle = new PuzzleGenerator().GeneratePuzzle(PuzzleDifficulty.Medium);
+        difficulty ??= PuzzleDifficulty.Medium.ToString();
+        
+        if (Enum.TryParse(difficulty, true, out PuzzleDifficulty puzzleDifficulty) == false)
+        {
+            return BadRequest($"Invalid difficulty: {difficulty}");
+        }
+
+        var puzzle = new PuzzleGenerator().GeneratePuzzle(puzzleDifficulty);
         
         var cells = puzzle
             .Select((value, index) => new SudokuCellDto
@@ -30,10 +37,13 @@ public class SudokuController : ControllerBase
             })
             .ToArray();
 
-        return new SudokuGridDto
+        var gridDto = new SudokuGridDto
         {
+            Difficulty = puzzleDifficulty.ToString(),
             Cells = cells
         };
+        
+        return Ok(gridDto);
     }
     
     [HttpPost("SolvePuzzle")]
