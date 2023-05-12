@@ -34,7 +34,31 @@
             "console": "internalConsole",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
-        }
-
+        },
+        {
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/SudokuSolver.Api/bin/Debug/net7.0/SudokuSolver.Api.dll",
+            "args": [
+                "run",
+                "--urls", "http://localhost:5147;https://localhost:7208"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "^\\s*Now listening on:\\s+(https?://\\S+)"
+              },
+              "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+              },
+              "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+              }
+        },
     ]
 }
