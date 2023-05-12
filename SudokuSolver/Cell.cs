@@ -2,14 +2,14 @@
 
 public class Cell
 {
+    public bool IsSolved => Value != 0;
     public event EventHandler<CellValueChangedEvent>? AssignedMethod;
-    public int Value { get; private set; }
+    public int Value => AvailableOptions.Count == 1 ? AvailableOptions[0] : 0;
     public int Id { get; }
     public List<int> AvailableOptions { get; private set; }
     public Cell(int cellId, int value = 0)
     {
         Id = cellId;
-        Value = value;
         AvailableOptions = new List<int>();
         InitAvailableOptions();
     }
@@ -17,13 +17,13 @@ public class Cell
     {
         AssignedMethod?.Invoke(this, new CellValueChangedEvent(Id, Value));
     }
-    public int SetValue(int value)
+    public void SetValue(int value)
     {
         if (value < 10 && value >= 0)
         {
-            Value = value;
             if (value != 0)
             {
+                RemoveAvailableOptions(AvailableOptions.Where(opt => opt != value).ToArray());
                 ValueChanged();
             }
         }
@@ -31,7 +31,6 @@ public class Cell
         {
             throw new InvalidOperationException("the value given to SetValue is invalid");
         }
-        return Value;
     }
     public bool RemoveAvailableOptions(int[] valuesToRemove)
     {
@@ -70,7 +69,6 @@ public class Cell
             AvailableOptions.Add(Value);
         }
     }
-    public bool IsSolved => Value != 0;
     
     public override string ToString()
     {
