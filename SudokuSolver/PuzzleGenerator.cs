@@ -21,7 +21,7 @@ public class PuzzleGenerator
             case PuzzleDifficulty.Hard:
                 return Puzzles.Hard;
             case PuzzleDifficulty.Expert:
-                return Puzzles.VeryHard;
+                return Puzzles.Expert;
             default:
                 throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null);
         }
@@ -69,7 +69,7 @@ internal static class Puzzles
         9, 0, 0, 0, 7, 8, 4, 0, 0,
     };
 
-    public static int[] VeryHard =
+    public static int[] Expert =
     {
         0, 0, 1, 0, 0, 6, 0, 0, 9,
         0, 3, 6, 9, 0, 0, 0, 4, 0,
