@@ -1,9 +1,11 @@
 ﻿using SudokuSolver;
 using SudokuSolver.Solver;
 
-int[] puzzle = new PuzzleGenerator().GeneratePuzzle(PuzzleDifficulty.Hard);
+PuzzleDifficulty difficulty = PuzzleDifficulty.Expert;
 
-Console.WriteLine("before solving:");
+int[] puzzle = new PuzzleGenerator().GeneratePuzzle(difficulty);
+
+Console.WriteLine($"Puzzle ({difficulty}):");
 Console.Write(puzzle.PrintAsSudokuGrid());
 
 var grid = new Grid();
@@ -26,6 +28,6 @@ if (grid.IsSolved)
 }
 else
 {
-    Console.WriteLine("\nCould not solve the puzzle.");
+    Console.WriteLine($"\nCould not solve the {difficulty} puzzle.");
     Console.Write(grid.PrintDebug());
 }

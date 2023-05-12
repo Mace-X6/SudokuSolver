@@ -35,5 +35,7 @@ public class Block : Clump
                 }
             }
         }
+
+        return new Cell[0];
     }
 }
