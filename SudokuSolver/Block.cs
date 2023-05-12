@@ -9,7 +9,7 @@ public class Block : Clump
     protected override Cell[] FilterClumpCells(Cell[] gridCells)
     {
         var cellsToClump = new List<Cell>();
-        
+
         int start = Number * 3 + (Number / 3) * 18;
 
         for (int i = 0; i < 3; i++)
@@ -22,5 +22,18 @@ public class Block : Clump
         }
 
         return cellsToClump.ToArray();
+    }
+
+    public Cell[] GetCertainOptionForBlockRow()
+    {
+        foreach (Cell cell in Cells)
+        {
+            foreach (int availableOption in cell.AvailableOptions)
+            {
+                if (Cells.Count(c => c.Id != cell.Id && c.AvailableOptions.Contains(availableOption)) == 0){
+                    
+                }
+            }
+        }
     }
 }
