@@ -5,11 +5,13 @@ PuzzleDifficulty difficulty = PuzzleDifficulty.Expert;
 
 int[] puzzle = new PuzzleGenerator().GeneratePuzzle(difficulty);
 
-Console.WriteLine($"Puzzle ({difficulty}):");
-Console.Write(puzzle.PrintAsSudokuGrid());
-
 var grid = new Grid();
 grid.FillGrid(puzzle);
+int originalUnsolvedCount = grid.UnsolvedCount;
+
+Console.WriteLine($"Puzzle ({difficulty}, {originalUnsolvedCount} open cells):");
+Console.Write(puzzle.PrintAsSudokuGrid());
+
 // Console.Write(grid.PrintDebug());
 
 var strategies = new ISudokuSolverStrategy[]
@@ -28,6 +30,6 @@ if (grid.IsSolved)
 }
 else
 {
-    Console.WriteLine($"\nCould not solve the {difficulty} puzzle.");
+    Console.WriteLine($"\nCould not solve the {difficulty} puzzle. {grid.UnsolvedCount} unsolved cells remain.");
     Console.Write(grid.PrintDebug());
 }

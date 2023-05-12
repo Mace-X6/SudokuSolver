@@ -14,11 +14,10 @@ public class Grid
     public Cell[] Cells => _cells.ToArray();
     public bool IsSolved => _cells.All(c => c.IsSolved);
 
-    private bool IsDebugMode { get; }
+    public int UnsolvedCount => 81 - Cells.Count(c => c.IsSolved);
 
     public Grid(bool isDebugMode = false)
     {
-        IsDebugMode = isDebugMode;
         for (int id = 0; id < 81; id++)
         {
             var cell = new Cell(id, isDebugMode);
