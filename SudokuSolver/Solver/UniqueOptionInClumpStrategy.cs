@@ -1,5 +1,5 @@
 namespace SudokuSolver.Solver;
-class UniqueOptionInClumpStrategy : ISudokuSolverStrategy
+public class UniqueOptionInClumpStrategy : ISudokuSolverStrategy
 {
     public bool Solve(Grid grid)
     {

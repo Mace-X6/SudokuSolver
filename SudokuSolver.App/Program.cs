@@ -12,7 +12,8 @@ grid.FillGrid(puzzle);
 
 var strategies = new ISudokuSolverStrategy[]
 {
-    new ExclusiveOptionsStrategy()
+    new ExclusiveOptionsStrategy(),
+    new UniqueOptionInClumpStrategy()
 };
 
 var solver = new SudokuSolver.Solver.SudokuSolver(strategies);
