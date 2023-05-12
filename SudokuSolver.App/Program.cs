@@ -1,4 +1,5 @@
 ﻿using SudokuSolver;
+using SudokuSolver.Solver;
 
 // int[] sudokuField = {
 //     5, 3, 0, 0, 0, 8, 9, 0, 2,
@@ -12,7 +13,7 @@
 //     3, 0, 0, 0, 8, 6, 0, 7, 9
 // };
 
-int[] sudokuField =
+int[] puzzle_Easy =
 {
     6, 3, 0, 0, 1, 0, 0, 0, 0,
     4, 0, 0, 0, 0, 0, 6, 0, 5,
@@ -25,21 +26,34 @@ int[] sudokuField =
     0, 0, 0, 0, 7, 0, 0, 4, 2
 };
 
-int[] veryHardSudoku = {0,0,1,0,0,6,0,0,9,0,3,6,9,0,0,0,4,0,7,0,0,3,0,0,0,8,6,0,0,4,0,7,0,0,0,0,6,0,0,1,0,9,0,0,2,0,0,0,0,6,0,9,0,0,3,5,0,0,0,7,0,0,8,0,6,0,0,0,1,4,2,0,4,0,0,6,0,0,5,0,0};
+int[] puzzle_VeryHard =
+{
+    0, 0, 1, 0, 0, 6, 0, 0, 9,
+    0, 3, 6, 9, 0, 0, 0, 4, 0,
+    7, 0, 0, 3, 0, 0, 0, 8, 6,
+    0, 0, 4, 0, 7, 0, 0, 0, 0,
+    6, 0, 0, 1, 0, 9, 0, 0, 2,
+    0, 0, 0, 0, 6, 0, 9, 0, 0,
+    3, 5, 0, 0, 0, 7, 0, 0, 8,
+    0, 6, 0, 0, 0, 1, 4, 2, 0,
+    4, 0, 0, 6, 0, 0, 5, 0, 0
+};
+
+var puzzleToSolve = puzzle_VeryHard;
 
 Console.WriteLine("before solving:");
-PrintField.PrintValues(sudokuField);
+PrintField.PrintValues(puzzleToSolve);
 
 var grid = new Grid();
-grid.FillGrid(sudokuField);
-Console.Write(grid.PrintDebug());
+grid.FillGrid(puzzleToSolve);
+// Console.Write(grid.PrintDebug());
 
 var strategies = new ISudokuSolverStrategy[]
 {
     new ExclusiveOptionsStrategy()
 };
 
-var solver = new SudokuSolver.SudokuSolver(strategies);
+var solver = new SudokuSolver.Solver.SudokuSolver(strategies);
 solver.Solve(grid);
 
 if (grid.IsSolved)

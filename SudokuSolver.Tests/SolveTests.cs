@@ -1,4 +1,5 @@
 using FluentAssertions;
+using SudokuSolver.Solver;
 
 namespace SudokuSolver.Tests;
 public class SolveTests
@@ -32,8 +33,14 @@ public class SolveTests
 
         var grid = new Grid();
         grid.FillGrid(sudokuField);
-        Solve solve = new Solve();
-        solve.DuplicateOptionsSolver(grid);
+
+        var solver = new Solver.SudokuSolver(new []
+        {
+            new ExclusiveOptionsStrategy()
+        });
+
+        solver.Solve(grid);
+        
         grid.Cells[3].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
         grid.Cells[4].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
         grid.Cells[30].AvailableOptions.Should().BeEquivalentTo(new[] { 6, 7 });
@@ -69,8 +76,14 @@ public class SolveTests
 
         var grid = new Grid();
         grid.FillGrid(sudokuField2);
-        Solve solve = new Solve();
-        solve.DuplicateOptionsSolver(grid);
+
+        var solver = new Solver.SudokuSolver(new []
+        {
+            new ExclusiveOptionsStrategy()
+        });
+
+        solver.Solve(grid);
+
         grid.Cells[2].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });
         grid.Cells[3].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });
         grid.Cells[4].AvailableOptions.Should().BeEquivalentTo(new[] { 3, 4, 5 });

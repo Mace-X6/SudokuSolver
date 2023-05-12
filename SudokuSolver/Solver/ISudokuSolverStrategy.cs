@@ -1,4 +1,4 @@
-﻿namespace SudokuSolver;
+﻿namespace SudokuSolver.Solver;
 
 public interface ISudokuSolverStrategy
 {

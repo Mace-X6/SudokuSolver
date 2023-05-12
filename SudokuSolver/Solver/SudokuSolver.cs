@@ -1,8 +1,8 @@
-﻿namespace SudokuSolver
+﻿namespace SudokuSolver.Solver
 {
     public class SudokuSolver
     {
-        private IEnumerable<ISudokuSolverStrategy> strategies;
+        private readonly IEnumerable<ISudokuSolverStrategy> strategies;
 
         public SudokuSolver(IEnumerable<ISudokuSolverStrategy> strategies)
         {
