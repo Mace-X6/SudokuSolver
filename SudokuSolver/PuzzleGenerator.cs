@@ -1,4 +1,34 @@
-﻿public static class Puzzles
+﻿namespace SudokuSolver;
+
+public enum PuzzleDifficulty
+{
+    Easy,
+    Medium,
+    Hard,
+    Expert
+}
+
+public class PuzzleGenerator
+{
+    public int[] GeneratePuzzle(PuzzleDifficulty difficulty)
+    {
+        switch (difficulty)
+        {
+            case PuzzleDifficulty.Easy:
+                return Puzzles.Easy;
+            case PuzzleDifficulty.Medium:
+                return Puzzles.Medium;
+            case PuzzleDifficulty.Hard:
+                return Puzzles.Hard;
+            case PuzzleDifficulty.Expert:
+                return Puzzles.VeryHard;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null);
+        }
+    }
+}
+
+internal static class Puzzles
 {
     public static int[] Easy =
     {

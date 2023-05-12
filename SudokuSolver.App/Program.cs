@@ -1,13 +1,13 @@
 ﻿using SudokuSolver;
 using SudokuSolver.Solver;
 
-int[] puzzleToSolve = Puzzles.Hard;
+int[] puzzle = new PuzzleGenerator().GeneratePuzzle(PuzzleDifficulty.Hard);
 
 Console.WriteLine("before solving:");
-Console.Write(puzzleToSolve.PrintAsSudokuGrid());
+Console.Write(puzzle.PrintAsSudokuGrid());
 
 var grid = new Grid();
-grid.FillGrid(puzzleToSolve);
+grid.FillGrid(puzzle);
 // Console.Write(grid.PrintDebug());
 
 var strategies = new ISudokuSolverStrategy[]
