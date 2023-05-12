@@ -13,6 +13,8 @@ const SudokuPage: React.FC = () => {
     const [puzzle, setPuzzle] = useState<Puzzle | null>([]);
     const [isSolved, setIsSolved] = useState<boolean>(false);
     const [difficulty, setDifficulty] = useState<Difficulty>('Easy');
+    const [animatedCells, setAnimatedCells] = useState<Set<number>>(new Set());
+
 
     const fetchPuzzle = async (endpoint: string) => {
         try {
@@ -51,11 +53,15 @@ const SudokuPage: React.FC = () => {
     
         // Update the cells in the order specified by the shuffled indices array
         for (const i of indices) {
-            await new Promise(r => setTimeout(r, 50));
-            setPuzzle(oldCells => [...(oldCells as Puzzle).slice(0, i), newCells[i], ...(oldCells as Puzzle).slice(i+1)]);
+          await new Promise(r => setTimeout(r, 50));
+          setAnimatedCells((prev) => new Set([...prev, i]));
+          setPuzzle(oldCells => [...(oldCells as Puzzle).slice(0, i), newCells[i], ...(oldCells as Puzzle).slice(i+1)]);
+          await new Promise(r => setTimeout(r, 50)); // animation duration
+          setAnimatedCells((prev) => new Set([...prev].filter(idx => idx !== i)));
         }
+
         setIsSolved(data.isSolved);
-    };
+      };
 
     useEffect(() => {
         fetchPuzzle('GetPuzzle');
@@ -77,10 +83,21 @@ const SudokuPage: React.FC = () => {
         <div>
           <h1>Sudoku Puzzle</h1>
           <div style={{ display: 'grid', border: '1px solid white', backgroundColor: 'white', gridTemplateColumns: 'repeat(9, 1fr)', gap: '2px' }}>
-            {puzzle && puzzle.map((cell) => (
-              <div key={cell.id} style={{ backgroundColor: 'black', padding: '1px' }}>
+          {puzzle && puzzle.sort((a, b) => a.id - b.id).map((cell, idx) => (
+            <div
+                key={cell.id}
+                style={{
+                backgroundColor: 'black',
+                padding: '1px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                transition: 'transform 200ms ease',
+                transform: animatedCells.has(idx) ? 'scale(1.2)' : 'scale(1)',
+                }}
+            >
                 {cell.value === 0 ? '' : cell.value}
-              </div>
+            </div>
             ))}
              {isSolved && <Confetti />}
           </div>
