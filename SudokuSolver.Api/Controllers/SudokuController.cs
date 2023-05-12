@@ -56,7 +56,7 @@ public class SudokuController : ControllerBase
             {
                 Id = c.Id,
                 Value = c.Value,
-                Options = c.AvailableOptions.ToArray()
+                Options = c.AvailableOptions
             }).ToArray()
         };
 

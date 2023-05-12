@@ -21,7 +21,7 @@ public class ExclusiveOptionsStrategy : ISudokuSolverStrategy
     private bool RemoveOptions(Clump clump, int count)
     {
         bool changesApplied = false;
-        var cellsWithCountOptions = clump.Cells.Where(c => c.AvailableOptions.Count == count);
+        var cellsWithCountOptions = clump.Cells.Where(c => c.AvailableOptions.Length == count);
 
         foreach(var cell in cellsWithCountOptions)
         {
@@ -36,7 +36,7 @@ public class ExclusiveOptionsStrategy : ISudokuSolverStrategy
                 var cellsToUpdate = clump.Cells.Where(c => !matchingCellIds.Contains(c.Id));
                 foreach (var cellToUpdate in cellsToUpdate)
                 {
-                    changesApplied |= cellToUpdate.RemoveAvailableOptions(cell.AvailableOptions.ToArray());
+                    changesApplied |= cellToUpdate.RemoveAvailableOptions(cell.AvailableOptions);
                 }
             }
         }

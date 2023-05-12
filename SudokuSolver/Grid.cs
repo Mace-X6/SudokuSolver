@@ -21,7 +21,7 @@ public class Grid
         IsDebugMode = isDebugMode;
         for (int id = 0; id < 81; id++)
         {
-            var cell = new Cell(id);
+            var cell = new Cell(id, isDebugMode);
             _cells.Add(cell);
         }
 
@@ -47,7 +47,7 @@ public class Grid
         {
             if (!cell.IsSolved)
             {
-                cell.SetValue(fields[cell.Id], IsDebugMode);
+                cell.SetValue(fields[cell.Id]);
             }
         }
     }

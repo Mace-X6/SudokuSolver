@@ -2,75 +2,66 @@
 
 public class Cell
 {
-    public bool IsSolved => Value != 0;
+    private readonly bool isDebugMode;
+    private readonly List<int> _availableOptions;
     public event EventHandler<CellValueChangedEvent>? AssignedMethod;
-    public int Value => AvailableOptions.Count == 1 ? AvailableOptions[0] : 0;
     public int Id { get; }
-    public List<int> AvailableOptions { get; private set; }
-    public Cell(int cellId, int value = 0)
+
+    public int[] AvailableOptions => _availableOptions.ToArray();
+
+    public int Value => _availableOptions.Count == 1 ? _availableOptions[0] : 0;
+    public bool IsSolved => Value != 0;
+    
+    public Cell(int cellId, bool isDebugMode = false)
     {
+        this.isDebugMode = isDebugMode;
         Id = cellId;
-        AvailableOptions = new List<int>();
-        InitAvailableOptions();
+        _availableOptions = Enumerable.Range(1, 9).ToList();
     }
+    
     private void ValueChanged()
     {
-        AssignedMethod?.Invoke(this, new CellValueChangedEvent(Id, Value));
-    }
-    public void SetValue(int value, bool inDebugMode = false)
-    {
-        if (value < 10 && value >= 0)
+        if (!isDebugMode)
         {
-            if (value != 0)
-            {
-                RemoveAvailableOptions(AvailableOptions.Where(opt => opt != value).ToArray());
-                if (!inDebugMode)
-                {
-                    ValueChanged();
-                }
-            }
+            AssignedMethod?.Invoke(this, new CellValueChangedEvent(Id, Value));
         }
-        else
+    }
+    public void SetValue(int value)
+    {
+        switch (value)
         {
-            throw new InvalidOperationException("the value given to SetValue is invalid");
+            case 0:
+                return;
+            case >= 1 and <= 9:
+                RemoveAvailableOptions(AvailableOptions.Where(opt => opt != value).ToArray());
+                ValueChanged();
+                break;
+            default:
+                throw new InvalidOperationException("the value given to SetValue is invalid");
         }
     }
     public bool RemoveAvailableOptions(int[] valuesToRemove)
     {
         bool appliedChanges = false;
 
-        if (AvailableOptions?.Count > 1)
+        if (_availableOptions.Count > 1)
         {
             foreach (int value in valuesToRemove)
             {
-                if (AvailableOptions.Contains(value))
+                if (_availableOptions.Contains(value))
                 {
-                    AvailableOptions.Remove(value);
+                    _availableOptions.Remove(value);
                     appliedChanges = true;
                 }
             }
 
-            if (AvailableOptions.Count == 1)
+            if (_availableOptions.Count == 1)
             {
-                SetValue(AvailableOptions[0]);
+                SetValue(_availableOptions[0]);
             }
         }
 
         return appliedChanges;
-    }
-    private void InitAvailableOptions()
-    {
-        if (!IsSolved)
-        {
-            for (int i = 1; i < 10; i++)
-            {
-                AvailableOptions.Add(i);
-            }
-        }
-        else
-        {
-            AvailableOptions.Add(Value);
-        }
     }
 
     public override string ToString()
