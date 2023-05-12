@@ -16,13 +16,4 @@ public class Row : Clump
 
         return cellsToClump.ToArray();
     }
-    
-    public string Print()
-    {
-        return $"| " +
-               $"{Cells[0].Print()} {Cells[1].Print()} {Cells[2].Print()} | " +
-               $"{Cells[3].Print()} {Cells[4].Print()} {Cells[5].Print()} | " +
-               $"{Cells[6].Print()} {Cells[7].Print()} {Cells[8].Print()} " +
-               $"|\n";
-    }
 }

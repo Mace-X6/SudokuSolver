@@ -72,34 +72,8 @@ public class Cell
     }
     public bool IsSolved => Value != 0;
     
-    public string Print()
-    {
-        return IsSolved ? Value.ToString() : " ";
-    }
-    
     public override string ToString()
     {
         return IsSolved ? Value.ToString() : " ";
-    }
-
-    public string PrintInnerRow(int innerRowIndex)
-    {
-        if (!IsSolved)
-        {
-            int optionValueOffset = innerRowIndex * 3;
-            return $"{PrintOption(1 + optionValueOffset)} {PrintOption(2 + optionValueOffset)} {PrintOption(3 + optionValueOffset)} ";
-        }
-        
-        if (innerRowIndex == 1)
-        {
-            return $"  {Value}   ";
-        }
-
-        return "      ";
-    }
-
-    private string PrintOption(int optionValue)
-    {
-        return AvailableOptions.Contains(optionValue) ? $"{optionValue}" : " ";
     }
 }

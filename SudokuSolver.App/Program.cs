@@ -4,7 +4,7 @@ using SudokuSolver.Solver;
 int[] puzzleToSolve = Puzzles.Hard;
 
 Console.WriteLine("before solving:");
-PrintField.PrintValues(puzzleToSolve);
+Console.Write(puzzleToSolve.PrintAsSudokuGrid());
 
 var grid = new Grid();
 grid.FillGrid(puzzleToSolve);
