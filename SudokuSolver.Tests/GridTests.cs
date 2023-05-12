@@ -235,16 +235,17 @@ public class GridTests
     [Fact]
     public void Program_should_solve_sudoku2()
     {
-        int[] sudokuField = {
-    0, 2, 0, 0, 9, 0, 0, 0, 0,
-    0, 0, 6, 4, 0, 2, 0, 0, 0,
-    7, 0, 0, 0, 0, 0, 0, 0, 5,
-    0, 0, 0, 0, 2, 0, 0, 3, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 3, 0, 0, 5, 0, 0, 0, 0,
-    3, 0, 0, 0, 0, 0, 0, 0, 1,
-    0, 0, 0, 6, 0, 7, 9, 0, 0,
-    0, 0, 0, 0, 1, 0, 0, 2, 0
+        int[] sudokuField =
+{
+    6, 3, 0, 0, 1, 0, 0, 0, 0,
+    4, 0, 0, 0, 0, 0, 6, 0, 5,
+    0, 0, 0, 8, 0, 9, 0, 0, 0,
+    7, 0, 0, 0, 5, 3, 0, 2, 1,
+    2, 0, 0, 7, 9, 1, 0, 0, 8,
+    9, 4, 0, 6, 2, 0, 0, 0, 7,
+    0, 0, 0, 1, 0, 5, 0, 0, 0,
+    1, 0, 7, 0, 0, 0, 0, 0, 3,
+    0, 0, 0, 0, 7, 0, 0, 4, 2
 };
 
 
@@ -254,8 +255,47 @@ public class GridTests
 
         var solve = new Solve();
         solve.DuplicateOptionsSolver(grid);
-        foreach (Clump clump in grid.Clumps){
-            clump.Cells.Select(c=>c.Value).Should().OnlyHaveUniqueItems();
+        foreach (Clump clump in grid.Clumps)
+        {
+            clump.Cells.Where(c => c.Value != 0).Select(c => c.Value).Should().OnlyHaveUniqueItems();
+        }
+        grid.Cells.Select(c => c.Value).Should().NotContain(0);
+    }
+    [Fact]
+    public void Program_should_solve_very_hard_sudoku()
+    {
+        int[] veryHardSudoku = {0,0,1,0,0,6,0,0,9,0,3,6,9,0,0,0,4,0,7,0,0,3,0,0,0,8,6,0,0,4,0,7,0,0,0,0,6,0,0,1,0,9,0,0,2,0,0,0,0,6,0,9,0,0,3,5,0,0,0,7,0,0,8,0,6,0,0,0,1,4,2,0,4,0,0,6,0,0,5,0,0};
+
+
+
+        var grid = new Grid();
+        var cells = grid.Cells;
+        grid.FillGrid(veryHardSudoku);
+
+        var solve = new Solve();
+        solve.DuplicateOptionsSolver(grid);
+        foreach (Clump clump in grid.Clumps)
+        {
+            clump.Cells.Where(c => c.Value != 0).Select(c => c.Value).Should().OnlyHaveUniqueItems();
+        }
+        grid.Cells.Select(c => c.Value).Should().NotContain(0);
+    }
+    [Fact]
+    public void Program_should_solve_medium_sudoku()
+    {
+        int[] mediumSudoku = {0,0,8,7,0,0,0,0,1,0,0,0,0,4,6,3,0,7,0,0,0,0,0,1,8,9,0,3,0,0,0,1,8,0,7,0,6,0,0,0,0,0,0,0,4,0,5,0,3,7,0,0,0,9,0,7,1,2,0,0,0,0,0,4,0,6,1,8,0,0,0,0,5,0,0,0,0,3,7,0,0};
+
+
+
+        var grid = new Grid();
+        var cells = grid.Cells;
+        grid.FillGrid(mediumSudoku);
+
+        var solve = new Solve();
+        solve.DuplicateOptionsSolver(grid);
+        foreach (Clump clump in grid.Clumps)
+        {
+            clump.Cells.Where(c => c.Value != 0).Select(c => c.Value).Should().OnlyHaveUniqueItems();
         }
         grid.Cells.Select(c => c.Value).Should().NotContain(0);
     }
